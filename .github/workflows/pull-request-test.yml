@@ -20,13 +20,13 @@ jobs:
               issue_number: context.payload.number,
             })
 
-            // Find any comment already made by the bot.                                                                                                    
-            const botComment = comments.find(comment => comment.user.id === 41898282)                                                                       
-            const commentBody = "Hello from actions/github-script! (${{ github.sha }})"                  
+            // Find any comment already made by the bot.
+            const botComment = comments.find(comment => comment.user.id === 41898282)
+            const commentBody = "Hello from actions/github-script! (${{ github.sha }})"
 
-            if (context.payload.pull_request.head.repo.full_name !== 'actions/github-script') {
-              console.log('Not attempting to write comment on PR from fork');
-            } else {
+            // if (context.payload.pull_request.head.repo.full_name !== context.payload.pull_request.base.repo.full_name) {
+              // console.log('Not attempting to write comment on PR from fork');
+            // } else {
               if (botComment) {
                 await github.rest.issues.updateComment({
                   owner: context.repo.owner,
@@ -42,4 +42,4 @@ jobs:
                   body: commentBody
                 })
               }
-            }
+            // }
